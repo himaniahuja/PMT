@@ -1,0 +1,1 @@
+$('#deliverable-select-wrapper').html("<%= escape_javascript(collection_select(:effort, :deliverable_id, @deliverables, :id, :name, {}, { :class => 'span2' })) %>")

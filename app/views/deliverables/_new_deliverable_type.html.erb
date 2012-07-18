@@ -1,0 +1,19 @@
+<div id= "new_deliverable_type" >
+
+<%= fields_for(@deliverable_type) do |f| %>
+
+  <div class="clearfix">
+       <%= f.label :name %>
+       <div class="input">
+       		<%= f.text_field(:name, :size => 70) %>
+       </div>
+  </div>
+
+  <div class="clearfix">
+    <div class="input">
+        <%= f.collection_select(:unit_id, @units, :id, :name, {:prompt => "Select unit of measurement"}) %>
+    </div>
+  </div>
+<%end%>
+
+</div>

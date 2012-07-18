@@ -1,0 +1,33 @@
+<%= form_for(@deliverable) do |f| %>
+
+  <br/>
+  <div class="clearfix">
+       <%= f.label :name %>
+       <div class="input">
+        <%= f.text_field(:name, :size => 70) %>
+       </div>
+  </div>
+
+  <br />
+  <div class="clearfix">
+        <%= f.label :description %>
+    <div class="input">
+        <%= f.text_area(:description, :class => "desc", :cols => 60, :rows => 4)%>
+      </div>
+  </div>
+
+  <br/>
+
+  <div class="clearfix">
+    <div class="input">
+        <%= f.collection_select(:deliverable_type_id, @deliverable_types, :id, :name, {:prompt => "Deliverable Type"}) %>
+      </div>
+  </div>
+
+  <br />
+  <div class="actions">
+       <%= f.submit(:value => "Apply", :class => "primary btn")%>
+  </div>
+
+  <br />
+<% end %>

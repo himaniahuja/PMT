@@ -1,0 +1,49 @@
+ <%= stylesheet_link_tag 'jquery.tablesorter.pager','pagination' %>
+ <%= javascript_include_tag  'jquery.tablesorter.pager','jquery.tablesorter.min','tablesort'%>
+<div id= "deliverable" >
+    <b> Total estimated effort for this phase:</b> <%= @phase.estimated_efforts %> Hours
+    <br/>
+    <br/>
+
+    <table id="showallTable" class="tablesorter">
+        <thead>
+
+            <tr>
+                <th  class="header"> Deliverables  </th>
+                <th  class="header"> Actual Effort(Hours) </th>
+                <th  class="header"> Estimated Effort(Hours) </th>
+                <th  class="header"> Status </th>
+                <% if (@phase.project.users.include?(current_user)) %>
+                	<th  class="header">  </th>
+                <%end%>
+            </tr>
+
+        </thead>
+
+
+        <tbody>
+            <% @phase.deliverables.each do |d|     %>
+                <tr>
+                    <td><%= link_to d.name, deliverable_path(:id => d.id) %> </td>
+
+                    <td><%= d.logged_efforts %> </td>
+                    <td><%= d.estimation.effort %>  </td>
+                    <td><%= d.is_done ? "Finished" : "Open" %></td>
+                  <% if (@phase.project.users.include?(current_user)) %>
+                    <td>
+                    <span><%= link_to d.is_done ? 'Restart' : 'Finish', toggle_is_done_deliverable_path(d.id), :method => "post" %></span>
+                    <% if can? :update, d %>
+                    <span><%= link_to 'Edit', edit_deliverable_path(:id => d.id)  %> </span>
+                    <%end%>
+                    <% if can? :destroy, d %>
+                      <span> <%= link_to 'Remove', deliverable_path(d.id), :method => "delete" %> </span>
+                    <%end%>
+                    </td>
+                  <%end%>
+                </tr>
+            <% end %>
+        </tbody>
+
+    </table>
+    <%= link_to "Add deliverable", new_deliverable_path(:phase_id => @phase.id) %>
+</div>

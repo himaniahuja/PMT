@@ -1,0 +1,70 @@
+ <%= javascript_include_tag  'calculation','dropdown'%>
+ <h1>
+  Estimate Deliverable
+</h1>
+<br/>
+
+
+
+
+<div class="clearfix">
+  <%= form_for( @estimation,{:url => deliverable_estimations_update_path(@estimation.deliverable)}) do |f|%>
+    <div class="clearfix">
+       <%= f.label :deliverable %>
+       <div class="input">
+         <%= f.text_field :deliverable, :value => @estimation.deliverable.name, :disabled=>'disable'%>
+	   </div>
+    </div>
+
+    <div class="clearfix">
+       <%= f.label :complexity %>
+       <div class="input">
+         <%= f.collection_select :complexity_id, @complexities,:id,:name, {:prompt => "Select Complexity"}%>
+	   </div>
+    </div>
+
+    <div class="clearfix">
+      <div class="input">
+        <div class="estimation-cell">&nbsp</div>
+        <div class="estimation-cell">Max</div>
+        <div class="estimation-cell">Avg</div>
+        <div class="estimation-cell">Min</div>
+      </div>
+    </div>
+
+    <div class="clearfix">
+       <%= f.label :size %>
+       <div class="input">
+         <div class="estimation-cell"><%= f.text_field :size, :class=>'calculation_size  span1'%></div>
+	     <span id="size_historical"></span>
+         <span><%= @estimation.deliverable.type.unit.name unless (@estimation.deliverable.type.nil?||@estimation.deliverable.type.unit.nil?)%></span>
+       </div>
+    </div>
+
+    <div class="clearfix">
+      <%= f.label :effort %>
+      <div class="input">
+        <div class="estimation-cell"><%= f.text_field :effort,:class=>'calculation_effort  span1'%></div>
+        <span id="effort_historical"></span>
+        <span>hours</span>
+
+      </div>
+    </div>
+
+    <div class="clearfix">
+      <%= f.label :productivity_rate %>
+      <div class="input">
+        <div class="estimation-cell"><%= f.text_field :productivity_rate, :class=>'calculation_rate  span1'%></div>
+        <span id="rate_historical"></span>
+        <span><%= @estimation.deliverable.type.unit.name unless (@estimation.deliverable.type.nil?||@estimation.deliverable.type.unit.nil?)%> / hours</span>
+      </div>
+    </div>
+  <div class="clearfix">
+    <div class="input">
+
+    <%= f.submit(:value => "Submit", :class => "btn")%>
+    </div>
+    </div>
+  <% end %>
+
+</div>

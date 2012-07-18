@@ -1,0 +1,41 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'jquery.tablesorter.pager','pagination' %>
+  <%= javascript_include_tag  'jquery.tablesorter.pager','jquery.tablesorter.min','tablesort'%>
+<% end %>
+
+
+ <table id="showallTable" class="tablesorter">
+   <thead>
+   <tr>
+    <th class="header">Name</th>
+    <th class="header">Started</th>
+    <th class="header">Estimated</th>
+    <th class="header">Status</th>
+    <% if current_user.role != "developer" %>
+    	<th class="header"></th>
+    <%end%>
+  </tr>
+ </thead>
+<% @projects.each do |p| %>
+     <tr>
+    <td><%=link_to p.name, project_path(p.id),:text =>p.name %></td>
+    <td><%= p.start_date %></td>
+    <td><%= p.estimated_end_date %></td>
+    <td><%= p.is_archived ? "Archived" : (p.is_finished ? "Finished" : "Open") %></td>
+    <%if current_user.role != "developer" %>
+    <% if can? :destroy, p %>
+    <td>
+      <span><%= link_to("Delete", project_path(p), :method => "delete") %></span>
+      <span><%= link_to_function(p.is_archived ? "Unarchive" : "Archive", "js_archive(this)", :"data-id" => p.id) if p.can_toggle_archive %></span>
+    </td>
+    <%else%>
+    <td></td>
+    <%end%>
+   <%end%>
+  </tr>
+<% end %>
+
+</table>
+<div class="apple_pagination">
+    <%= will_paginate @projects, :container => false %>
+</div>

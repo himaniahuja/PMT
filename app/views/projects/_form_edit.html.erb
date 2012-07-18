@@ -1,0 +1,101 @@
+<%= form_for(@project) do |f| %>
+  <% if @project.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+      <ul>
+      <% @project.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <br/>
+  <div class="clearfix">
+       <%= f.label :name %>
+       <div class="input">
+       <%= f.text_field(:name, :size => 70) %>
+         </div>
+  </div>
+
+  <br />
+  <div class="clearfix">
+        <%= f.label :description %>
+    <div class="input">
+        <%= f.text_area(:description, :class => "desc", :cols => 60, :rows => 4)%>
+      </div>
+  </div>
+   <br />
+    <div class="clearfix">
+          <%= f.label :start_date %>
+      <div class="input">
+          <%= f.text_field(:start_date, :size => 10, :value => @project.start_date, :onfocus => "value=\'\'")%>
+        </div>
+    </div>
+    <br />
+    <div class="clearfix">
+          <%= f.label :estimated_end_date %>
+      <div class="input">
+          <%= f.text_field(:estimated_end_date, :size => 10,:value => @project.estimated_end_date, :onfocus => "value=\'\'")%>
+        </div>
+    </div>
+
+    <br />
+    <div class="clearfix">
+          <%= f.label(:is_finished, "Finished") %>
+      <div class="input">
+          <%= f.check_box(:is_finished) %>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+      $(function () {
+        init_phase_sortables();
+      });
+    </script>
+
+	<div class="clearfix">
+			<h3> Update Phases </h3>
+            <div class="phases-panel">
+                <%= f.fields_for :phases do |builder| %>
+                    <%= render :partial => "phase_fields", :locals => { :f => builder}  %>
+                <% end %>
+            </div>
+            <br />
+    </div>
+    <div class="clearfix">
+      <p><%= link_to_add_fields "Add Another Phase", f, :phases %></p>
+	</div>
+
+
+     <div id="people_in_a_collection">
+              <h3>Assign People</h3>
+             <%= render :partial => 'user_in_a_collection', :collection =>@project.users, :locals => { :collection_form => f , :member_label => "Enter Name"}   %>
+           </div>
+
+           <div class="formItem indented"><p><%= link_to "Add a team member", "#", :id => "add_person" %></p></div>
+
+
+    <%# content_for :javascript do %>
+       <%# javascript_tag do %>
+    <script type="text/javascript">
+    	$(function() {
+    		$("#add_person").click(function() {
+               $("#people_in_a_collection").append("<%= escape_javascript(render(:partial => 'user_in_a_collection', :object => User.new, :locals => { :member_label => "Enter Name"} )) %>");
+            });
+
+     	});
+    </script>
+       <%# end %>
+    <%# end %>
+
+
+  <div class="actions">
+    <%= f.submit(:value => "Apply", :class => "btn primary")%>
+  </div>
+
+  <br />
+<% end %>
+
+

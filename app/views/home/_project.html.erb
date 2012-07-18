@@ -1,0 +1,26 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'jquery.tablesorter.pager','pagination' %>
+  <%= javascript_include_tag  'jquery.tablesorter.pager','jquery.tablesorter.min','tablesort'%>
+  <%= javascript_include_tag 'project-helper' %>
+<% end %>
+
+
+ <table id="showallTable" class="tablesorter">
+   <thead>
+   <tr>
+    <th class="header">Name</th>
+    <th class="header">Description</th>
+    <th class="header">Started</th>
+    <th class="header">Estimated</th>
+  </tr>
+ </thead>
+<% @projects.each do |p| %>
+     <tr>
+    <td><%=link_to p.name, project_path(p.id),:text =>p.name %></td>
+    <td><%= p.description%></td>
+    <td><%= p.start_date %></td>
+    <td><%= p.estimated_end_date %></td>
+  </tr>
+<% end %>
+
+</table>

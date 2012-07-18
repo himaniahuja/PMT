@@ -1,0 +1,51 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'jquery.tablesorter.pager','pagination' %>
+  <%= javascript_include_tag  'jquery.tablesorter.pager','jquery.tablesorter.min','tablesort'%>
+  <%= javascript_include_tag 'project-helper' %>
+  <%= javascript_include_tag 'home-helper' %>
+<% end %>
+
+<%= form_for(@effort) do |f| %>
+  <table class="tablesorter">
+    <thead>
+      <tr>
+        <th class="header">Project</th>
+        <th class="header">Phase</th>
+        <th class="header">Deliverable</th>
+        <th class="header">Date</th>
+        <th class="header">Hrs Spent</th>
+        <th class="header">Hrs Int.</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td id="project-select-wrapper"><%= collection_select(:project, :id, @projects, :id, :name, {}, { :class => 'span2' }) %></td>
+        <td id="phase-select-wrapper"><%= collection_select(:phase, :id, @phases, :id, :name, {}, { :class => 'span2' }) %></td>
+        <td id="deliverable-select-wrapper"><%= f.collection_select(:deliverable_id, @deliverables, :id, :name, {}, { :class => 'span2' }) %></td>
+        <td><%= f.text_field(:date_of_logging, :class => 'span2') %></td>
+        <td><%= f.text_field(:time_spent, :class => 'span1') %></td>
+        <td><%= f.text_field(:interrupt_time, :class => 'span1') %></td>
+      </tr>
+      <tr>
+        <td colspan="6"><%= f.submit("Add", :class => "btn") %></td>
+      </tr>
+    <% unless @recent_deliverables.nil? %>
+     <% @recent_deliverables.each do |rd|%>
+      <%unless rd.nil?||rd.phase.nil?%>
+      <tr>
+        <td><%=link_to_function(rd.phase.project.name,"update_effort_func(this)",:deliverable_id=>rd.id ,:class=>'update_effort')%></td>
+        <td><%=link_to_function(rd.phase.name,"update_effort_func(this)",:deliverable_id=>rd.id ,:class=>'update_effort')%></td>
+        <td><%=link_to_function(rd.name,"update_effort_func(this)",:deliverable_id=>rd.id ,:class=>'update_effort')%></td>
+        <td><%= rd.lastest_effortlogging_time %></td>
+        <td><%= rd.logged_efforts %></td>
+        <td><%= rd.interrupted_hrs %></td>
+        </tr>
+        <%end%>
+      <% end %>
+  <% end %>
+
+    </tbody>
+
+  </table>
+
+<% end %>

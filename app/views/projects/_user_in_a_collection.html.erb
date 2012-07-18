@@ -1,0 +1,22 @@
+<%
+ #Parameters: member_label
+ member_label = local_assigns[:member_label].nil? ? "Enter Name" : local_assigns[:member_label]
+%>
+
+<div class="person_in_a_collection">
+  <% prefix = "paper[people_attributes][]" %>
+  <%= fields_for :people do |author_form| -%>
+    <div class="formItem indented ui-widget clearfix">
+      <label><%= member_label %></label>
+      <div class="input">
+        <input type="text" size="30" name="users[]" class="users_name" id="users_name" value="<%=  user_in_a_collection.username %>"/>
+        <%= link_to "remove", "#", :class => "remove_person" %>
+      </div>
+      <script type="text/javascript">
+        $(".remove_person").click(function() {
+            $(this).parents('div.person_in_a_collection').remove();
+        });
+      </script>
+    </div>
+    <% end %>
+</div>

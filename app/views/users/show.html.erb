@@ -1,0 +1,24 @@
+<%= javascript_include_tag 'pagination','search'%>
+<h1>User Profile</h1>
+<br/>
+<div class="user-info">
+    <div class="clearfix">
+        <div>
+          <p><b><%= "Name: " %></b> <%= @user.username %> </p>
+        </div>
+        <div>
+          <p><b><%= "Email: " %></b> <%= @user.email %> </p>
+        </div>
+        <div>
+          <p><b><%= "Role: " %></b> <%= @user.role %> </p>
+        </div>
+  </div>
+</div>
+<div class="projects">
+   <h4>Projects:</h4>
+ <div id="projects">
+   <%=render 'projects'%>
+<br />
+ </div>
+
+</div>

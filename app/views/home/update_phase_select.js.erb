@@ -1,0 +1,2 @@
+$('#deliverable-select-wrapper').html("<%= escape_javascript(collection_select(:effort, :deliverable_id, @deliverables, :id, :name, {}, { :class => 'span2' })) %>")
+$('#phase-select-wrapper').html("<%= escape_javascript(collection_select(:phase, :id, @phases, :id, :name, {}, { :class => 'span2' })) %>")

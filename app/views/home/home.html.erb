@@ -1,0 +1,7 @@
+
+<h2>Welcome <%= current_user.username %> </h2>
+
+<%= render 'effort_log_form' %>
+
+
+<%= render 'project' unless current_user.role == 'developer'%>

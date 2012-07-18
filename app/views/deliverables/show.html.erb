@@ -1,0 +1,33 @@
+
+<p id="notice"><%= notice %></p>
+<h1>
+      <%= @deliverable.name %>
+</h1>
+<p>
+    <b> Details: </b><%= @deliverable.description %>
+    <br />
+    <% unless @deliverable.deliverable_type_id.nil? %>
+       <b> Type: </b> <%= @deliverable.type.name %>
+       <br />
+    <% end %>
+    <% unless @deliverable.estimation.nil? %>
+
+    	<b> Productivity Rate: </b><%= @deliverable.estimation.productivity_rate %>
+    	<br />
+    	<b> Effort: </b><%= @deliverable.estimation.effort %>
+    	<br />
+    	<b> Size: </b><%= @deliverable.estimation.size %>
+    	<br />
+    	<b> Unit of Measurement: </b><%= @deliverable.type.unit.name unless (@deliverable.type.nil?||@deliverable.type.unit.nil?)%>
+    	<br />
+    	<b> Complexity: </b><%= @deliverable.estimation.complexity.name unless @deliverable.estimation.complexity.nil?%>
+    	<br />
+    <% end %>
+
+<%= link_to 'Estimate', deliverable_estimations_path(@deliverable) %>
+
+  <br/>
+<%= link_to 'Edit', edit_deliverable_path %>
+
+<br/>
+<%= link_to 'Back', project_path(:id => @deliverable.phase.project.id) %>

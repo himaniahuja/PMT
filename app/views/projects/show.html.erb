@@ -1,0 +1,48 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'dropdown'%>
+  <%= javascript_include_tag 'dropdown'%>
+<% end %>
+<div>
+<h1>
+      <%= @project.name %>
+</h1>
+<p>
+    <b> Details: </b><%= @project.description %>
+    <br />
+    <b> Owned By:</b>  <%= @owner.username %>
+    <br />
+    <b> Total estimated effort:</b> <%= @total_effort_for_project %>
+    <br />
+    <% if !@project.life_cycle_id == nil? %>
+    	<b> Life Cycle: </b> <%= @lifecycle.name %>
+    	<br />
+    <% end %>
+
+    <b> Start Date: </b><%= @project.start_date %>
+    <br />
+    <b> Estimated End Date: </b><%= @project.estimated_end_date%>
+    <br />
+    <b> Finished: </b><% if @project.is_finished then %>Yes<% else %>No<% end %>
+    <br />
+    <b> Phase: </b><%= collection_select(:post,:phase_id, @phases,:id,:name) %>
+  <div id="deliverables"> </div>
+<br />
+
+<div>
+ 	<p>
+ 	<h3> People </h3>
+ 	<% if @project.users.empty? %>
+ 	 	 Currently no one is assigned to project
+ 	<% else %>
+ 	 	<% @project.users.each do |r|  %>
+ 	 		<li><%=link_to r.username, profile_path(r.id) %> </li>
+ 	 	<% end %>
+ 	<% end %>
+ 	</p>
+</div>
+
+<%= link_to 'Edit', edit_project_path(@project) %>
+<br/>
+<%= link_to 'Back', pages_showall_path %>
+</div>
+

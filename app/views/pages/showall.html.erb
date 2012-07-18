@@ -1,0 +1,17 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'pagination','search' %>
+  <%= javascript_include_tag 'project-all-helper' %>
+<% end %>
+
+<div class="projects">
+   <h2>All Projects</h2>
+  <br/>
+  <br/>
+  <div class="clearfix"><b>Search Project:</b><%= text_field_tag 'search_project'%> </div>
+   <br/>
+ <div id="projects">
+   <%=render 'project'%>
+<br />
+ </div>
+
+</div>

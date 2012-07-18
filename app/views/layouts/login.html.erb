@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PET</title>
+  <%= stylesheet_link_tag 'style' %>
+  <%= javascript_include_tag 'jquery' %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+<div id="wrapper">
+	<div id="page">
+		<div id="page-bgtop">
+			<div id="page-bgbtm">
+				<div id="content">
+                  <%= yield %>
+				</div>
+				<!-- end #content -->
+				<div id="sidebar">
+					<div id="logo">
+						<h1><%=link_to "PET"%></h1>
+                        <br/>
+						<p> Process Enactment Tool </p>
+					</div>
+				</div>
+				<!-- end #sidebar -->
+				<div style="clear: both;">&nbsp;</div>
+			</div>
+		</div>
+	</div>
+	<!-- end #page -->
+</div>
+<div id="footer">
+	<p>Copyright (c) 2011 Mavericks All rights reserved. .</p>
+</div>
+<!-- end #footer -->
+</body>
+</html>

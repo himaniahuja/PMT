@@ -1,14 +1,65 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>PMT</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
+  <title>PET</title>
+  <%= stylesheet_link_tag 'style', 'jquery-ui', 'bootstrap' %>
+  <%= javascript_include_tag 'jquery','jquery_ujs' , 'jquery-ui.min', 'application'%>
+  <%= yield :head %>
+  <%= csrf_meta_tag %>
 </head>
 <body>
+<div id="wrapper">
+	<div id="page">
+		<div id="page-bgtop">
+			<div id="page-bgbtm">
+              <div class="login_logout">
+                 <% if user_signed_in? %>
+                    Logged in as:
+                    <%= link_to current_user.username, profile_path(current_user) %>
+                    <em>
+                        <%= link_to '(logout)', destroy_user_session_path,:method=>'delete',:style=>'color:#FFFFFF;'%>
+                    </em>
+                <%end%>
+              </div>
+				<div id="content">
+                  <p id="notice"><%= notice %></p>
+                  <%= yield %>
+				</div>
+				<!-- end #content -->
+				<div id="sidebar">
+					<div id="logo">
+						<h1><%=link_to "PET"%></h1>
+                        <br/>
+						<p> Process Enactment Tool </p>
+					</div>
+					<div id="menu">
+						<ul>
+							<!--<li class="current_page_item"><a href="#">Home</a></li> -->
+                          <li <%= nav_tab_class({'home' => ['home']}, 'current_page_item') %>><%=link_to "Home", root_path %></li>
+                            <li <%= nav_tab_class({'pages' => ['showmy']}, 'current_page_item') %>>
+                              <%=link_to "My Projects", pages_showmy_path%>
+                            </li>
+							<li <%= nav_tab_class({'pages' => ['showall']}, 'current_page_item') %>><%=link_to "All Projects",pages_showall_path%></li>
+							<% if can? :create, Project %>
+							 <li <%= nav_tab_class({'projects' => ['new']}, 'current_page_item') %>><%=link_to "Create Project", new_project_path %></li>
+                            <%end%>
+                            <% if can? :create, User %>
+                        	  <li <%= nav_tab_class({'user_registration' => [:all]}, 'current_page_item') %>><%=link_to "Create User", new_user_registration_path%></li>
+						    <%end%>
+						</ul>
+					</div>
 
-<%= yield %>
-
+				</div>
+				<!-- end #sidebar -->
+				<div style="clear: both;">&nbsp;</div>
+			</div>
+		</div>
+	</div>
+	<!-- end #page -->
+</div>
+<div id="footer">
+	<p>Copyright (c) 2011 Mavericks All rights reserved. .</p>
+</div>
+<!-- end #footer -->
 </body>
 </html>

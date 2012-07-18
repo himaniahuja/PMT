@@ -1,0 +1,17 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'pagination'%>
+  <%= javascript_include_tag 'project-helper' %>
+<% end %>
+<% if !@projects.nil? %>
+	<div class="projects">
+   		<h2>My Projects</h2>
+  		<br/>
+  		<br/>
+		<div id="projects">
+	 		<%=render 'project'%>
+			<br />
+ 		</div>
+	</div>
+<% else %>
+     <h3>Currently no project is assigned to you. </h3>
+<% end %>

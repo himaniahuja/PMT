@@ -1,0 +1,9 @@
+<% unless @complexity.nil?|| @estimation.deliverable.type.nil?%>
+   <% unless @estimation.deliverable.historical_data(@complexity)[:size][:max].nil?%>
+        <div class="estimation-cell"><%=text_field_tag 'max_size',  @estimation.deliverable.historical_data(@complexity)[:size][:max],:class => 'span1' ,:disabled =>true %></div>
+        <div class="estimation-cell"><%=text_field_tag 'avg_size', @estimation.deliverable.historical_data(@complexity)[:size][:avg],:class => 'span1' ,:disabled =>true %></div>
+        <div class="estimation-cell"><%=text_field_tag 'min_size',  @estimation.deliverable.historical_data(@complexity)[:size][:min],:class => 'span1'  ,:disabled =>true %></div>
+    <%else%>
+        <div class="estimation-no-data-cell">(No Historical Data)</div>
+    <%end%>
+<%end%>

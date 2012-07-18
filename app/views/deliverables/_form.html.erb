@@ -1,0 +1,45 @@
+<%= javascript_include_tag 'dropdown'%>
+
+<%= form_for(@deliverable) do |f| %>
+  <% if @deliverable.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@deliverable.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+      <ul>
+      <% @deliverable.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field(:phase_id, :value => @deliverable.phase_id) %>
+
+  <br/>
+  <div class="clearfix">
+       <%= f.label :name %>
+       <div class="input">
+       <%= f.text_field(:name, :size => 70) %>
+         </div>
+  </div>
+
+  <div class="clearfix">
+        <%= f.label :description %><div class="input">
+        <%= f.text_area(:description, :class => "desc", :cols => 60, :rows => 4)%>
+    </div>
+  </div>
+
+  <br/>
+
+  <div class="clearfix">
+    <div class="input">
+        <%= f.collection_select(:deliverable_type_id, @deliverable_types, :id, :name, {:prompt => "Select deliverable type"}) %>
+    </div>
+  </div>
+  <div id="new_deliverable_type"></div>
+
+  <div class="actions">
+    <%= f.submit(:value => "Add Deliverable", :class => "primary btn")%>
+  </div>
+
+<% end %>
